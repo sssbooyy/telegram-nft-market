@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import "./App.css"
 
+const API = "https://nft-backend-zk0a.onrender.com"
+
 function App() {
   const [gifts, setGifts] = useState([])
   const [selectedGift, setSelectedGift] = useState(null)
@@ -14,7 +16,7 @@ function App() {
   useEffect(() => {
     window.Telegram?.WebApp?.ready()
 
-    axios.get("/api/gifts")
+    axios.get(`${API}/gifts`)
       .then(res => {
         setGifts(res.data)
         setLoading(false)
@@ -28,7 +30,7 @@ function App() {
   const createOrder = async (gift) => {
     const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user
 
-    const res = await axios.post("/api/orders", {
+    const res = await axios.post(`${API}/orders`, {
       giftId: gift.id,
       user: tgUser
     })
@@ -49,7 +51,7 @@ function App() {
       ? username.trim()
       : "@" + username.trim()
 
-    await axios.post("/api/payment-success", {
+    await axios.post(`${API}/payment-success`, {
       orderId: order.id,
       username: cleanUsername
     })
