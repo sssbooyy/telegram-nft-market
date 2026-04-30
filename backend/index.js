@@ -19,39 +19,51 @@ let orders = [];
 const gifts = [
   {
     id: 1,
-    name: 'Golden Gift',
-    number: 93201,
-    price: 50000,
-    collection: 'Premium',
-    model: 'Gift',
-    image: 'https://cdn-icons-png.flaticon.com/512/869/869636.png'
+    name: "Fresh Socks",
+    number: 918,
+    model: "Foundation",
+    symbol: "Drug",
+    backdrop: "Cobalt Blue",
+    availability: "162 997/200 509",
+    value: 165506,
+    image: "https://i.imgur.com/1X6GQ7M.png",
+    bgColor: "#5c6cff"
   },
   {
     id: 2,
-    name: 'Diamond Gift',
-    number: 48140,
-    price: 120000,
-    collection: 'Luxury',
-    model: 'Diamond',
-    image: 'https://cdn-icons-png.flaticon.com/512/3468/3468377.png'
+    name: "Bling Binky",
+    number: 918,
+    model: "Regent",
+    symbol: "Pomegranate",
+    backdrop: "Burgundy",
+    availability: "9 377/9 990",
+    value: 1275373,
+    image: "https://i.imgur.com/2mYwJYp.png",
+    bgColor: "#8b4a4a"
   },
   {
     id: 3,
-    name: 'Pool Float',
-    number: 159426,
-    price: 68300,
-    collection: 'Summer',
-    model: 'Float',
-    image: 'https://cdn-icons-png.flaticon.com/512/616/616554.png'
+    name: "Input Key",
+    number: 918,
+    model: "Woodland",
+    symbol: "Orchid",
+    backdrop: "Chestnut",
+    availability: "132 032/159 750",
+    value: 514952,
+    image: "https://i.imgur.com/3YkQw2R.png",
+    bgColor: "#a0522d"
   },
   {
     id: 4,
-    name: 'Victory Medal',
-    number: 88422,
-    price: 20400,
-    collection: 'Awards',
-    model: 'Medal',
-    image: 'https://cdn-icons-png.flaticon.com/512/2583/2583344.png'
+    name: "Swag Bag",
+    number: 918,
+    model: "Rastafari",
+    symbol: "Ice Cream",
+    backdrop: "Pacific Cyan",
+    availability: "231 724/237 970",
+    value: 292070,
+    image: "https://i.imgur.com/4ZkLmP3.png",
+    bgColor: "#4db8ff"
   }
 ];
 

@@ -90,13 +90,18 @@ export default function App() {
           <div className="grid">
             {filtered.map((gift) => (
               <div className="card" key={gift.id} onClick={() => setSelected(gift)}>
-                <div className="imageBox">
-                  <img src={gift.image} alt={gift.name} />
-                </div>
-                <h2>{gift.name}</h2>
-                <p>#{gift.number}</p>
-                <button>{gift.price} 💎</button>
+              <div
+                className="imageBox"
+                style={{ background: gift.bgColor }}
+              >
+                <img src={gift.image} />
               </div>
+            
+              <h2>{gift.name} #{gift.number}</h2>
+              <p>{gift.model}</p>
+            
+              <button>{gift.value.toLocaleString()} сум</button>
+            </div>
             ))}
           </div>
         </>
@@ -118,16 +123,26 @@ export default function App() {
 
       {selected && (
         <div className="modal">
-          <div className="modalContent">
+          <div className="modalContent" style={{ background: selected.bgColor }}>
             <button className="close" onClick={() => setSelected(null)}>×</button>
-            <img src={selected.image} alt={selected.name} />
-            <h1>{selected.name}</h1>
-            <p>#{selected.number}</p>
-            <h2>{selected.price} 💎</h2>
-            <button className="buy" onClick={() => buyGift(selected.id)}>
-              Request gift
-            </button>
+            <img src={selected.image} />
+
+            <h1>{selected.name} #{selected.number}</h1>
+            <p>{selected.model}</p>
+
+            <div className="info">
+              <div><b>Owner:</b> Abat ⭐</div>
+              <div><b>Model:</b> {selected.model}</div>
+              <div><b>Symbol:</b> {selected.symbol}</div>
+              <div><b>Backdrop:</b> {selected.backdrop}</div>
+              <div><b>Availability:</b> {selected.availability}</div>
+              <div><b>Value:</b> {selected.value.toLocaleString()} сум</div>
           </div>
+
+          <button className="buy" onClick={() => buyGift(selected.id)}>
+            Request gift
+          </button>
+        </div>
         </div>
       )}
     </div>

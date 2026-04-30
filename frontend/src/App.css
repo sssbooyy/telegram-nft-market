@@ -233,3 +233,15 @@ body {
   margin-top: 40px;
   color: #aaa;
 }
+
+.info {
+  margin-top: 20px;
+  text-align: left;
+  background: rgba(0,0,0,0.4);
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.info div {
+  margin-bottom: 8px;
+}
