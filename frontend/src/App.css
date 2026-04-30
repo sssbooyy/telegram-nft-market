@@ -140,6 +140,7 @@ body {
 .card h2 {
   font-size: 22px;
   margin: 14px 0 2px;
+  color: white;
 }
 
 .card p {
@@ -420,4 +421,130 @@ body {
   color: white;
   font-size: 26px;
   font-weight: 700;
+}
+
+/* MOBILE FIX */
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 14px;
+  padding-bottom: 110px;
+  overflow-x: hidden;
+}
+
+.grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card {
+  padding: 10px;
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+.imageBox {
+  height: 150px;
+  border-radius: 20px;
+}
+
+.imageBox img {
+  width: 95px;
+  height: 95px;
+  object-fit: contain;
+}
+
+.card h2 {
+  color: white;
+  font-size: 22px;
+  line-height: 1.15;
+  text-align: center;
+  margin: 14px 0 4px;
+  word-break: normal;
+}
+
+.card p {
+  color: #9a9a9a;
+  font-size: 18px;
+  text-align: center;
+}
+
+.card button {
+  font-size: 18px;
+  padding: 12px 8px;
+  white-space: normal;
+  line-height: 1.15;
+}
+
+.giftPage {
+  max-width: 480px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+.giftHero {
+  min-height: 430px;
+  padding: 18px 14px 22px;
+}
+
+.giftBigImage {
+  width: 120px;
+  height: 120px;
+}
+
+.giftHero h1 {
+  font-size: 30px;
+}
+
+.giftHero p {
+  font-size: 22px;
+}
+
+.giftActions {
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.giftActions button {
+  height: 90px;
+  border-radius: 24px;
+  font-size: 30px;
+}
+
+.giftActions span {
+  font-size: 18px;
+}
+
+.giftDetails {
+  padding: 22px 16px 36px;
+}
+
+.row {
+  grid-template-columns: 30% 70%;
+  min-height: 64px;
+}
+
+.row > div {
+  padding: 12px;
+  font-size: 18px;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.percent,
+.learn {
+  font-size: 14px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+}
+
+.displayBtn {
+  height: 64px;
+  font-size: 24px;
 }
