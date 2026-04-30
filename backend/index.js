@@ -38,7 +38,7 @@ const gifts = [
     backdrop: "Burgundy",
     availability: "9 377/9 990 issued",
     value: 1275373,
-    image: "/gifts/bling-binly.png",
+    image: "/gifts/bling-binky.png",
     bgColor: "#8b4a4a"
   },
   {
