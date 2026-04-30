@@ -2,47 +2,58 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-
 const TelegramBot = require('node-telegram-bot-api');
 
-const bot = new TelegramBot('8689990118:AAHJnEiJH_4aGctJwGqEnDWTwWVmEhL_vw0', { polling: false });
-const ADMIN_CHAT_ID = '8182287812';
-
 const app = express();
-
 
 app.use(cors());
 app.use(express.json());
 
+const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: false });
+const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || '8182287812';
+
 let orders = [];
+
+const gifts = [
+  {
+    id: 1,
+    name: 'Golden Gift',
+    price: 50000,
+    image: 'https://cdn-icons-png.flaticon.com/512/869/869636.png'
+  },
+  {
+    id: 2,
+    name: 'Diamond Gift',
+    price: 120000,
+    image: 'https://cdn-icons-png.flaticon.com/512/3468/3468377.png'
+  }
+];
 
 app.get('/', (req, res) => {
   res.send('Backend работает 🚀');
 });
 
 app.get('/gifts', (req, res) => {
-  res.json([
-    {
-      id: 1,
-      name: 'Golden Gift',
-      price: 50000,
-      image: 'https://cdn-icons-png.flaticon.com/512/869/869636.png'
-    },
-    {
-      id: 2,
-      name: 'Diamond Gift',
-      price: 120000,
-      image: 'https://cdn-icons-png.flaticon.com/512/3468/3468377.png'
-    }
-  ]);
+  res.json(gifts);
 });
 
 app.post('/orders', (req, res) => {
   const { giftId, user } = req.body;
 
+  const gift = gifts.find(g => g.id == giftId);
+
+  if (!gift) {
+    return res.status(404).json({
+      success: false,
+      message: 'Товар не найден'
+    });
+  }
+
   const order = {
     id: Date.now(),
-    giftId,
+    giftId: gift.id,
+    giftName: gift.name,
+    price: gift.price,
     buyer: user || null,
     status: 'pending',
     createdAt: new Date()
@@ -64,30 +75,27 @@ app.get('/orders', (req, res) => {
 app.post('/payment-success', async (req, res) => {
   try {
     const { orderId, username } = req.body;
-    
+
     const order = orders.find(o => o.id == orderId);
 
     if (!order) {
-      return res.status(404).json({ success: false, message: 'Заказ не найден' });
+      return res.status(404).json({
+        success: false,
+        message: 'Заказ не найден'
+      });
     }
 
     order.status = 'paid';
-
-    const gifts = [
-      { id: 1, name: 'NFT Gift 1', price: 50000 },
-      { id: 2, name: 'NFT Gift 2', price: 120000 }
-    ];
-
-    const gift = gifts.find(g => g.id == order.giftId);
+    order.username = username || 'не указан';
 
     await bot.sendMessage(
       ADMIN_CHAT_ID,
       `💰 Новый оплаченный заказ!
 
 🧾 Заказ: #${order.id}
-👤 Покупатель: ${username || 'не указан'}
-🎁 Товар: ${gift?.name || order.giftId}
-💵 Цена: ${gift?.price?.toLocaleString() || '-'} сум
+👤 Покупатель: ${order.username}
+🎁 Товар: ${order.giftName}
+💵 Цена: ${order.price.toLocaleString()} сум
 📌 Статус: ${order.status}
 
 Нужно вручную отправить подарок пользователю.`,
@@ -105,10 +113,17 @@ app.post('/payment-success', async (req, res) => {
       }
     );
 
-    res.json({ success: true, message: 'Оплата подтверждена' });
+    res.json({
+      success: true,
+      message: 'Оплата подтверждена'
+    });
   } catch (error) {
     console.error('Ошибка Telegram:', error.message);
-    res.status(500).json({ success: false, error: error.message });
+
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
   }
 });
 
@@ -119,25 +134,31 @@ bot.on('callback_query', async (query) => {
     const orderId = data.replace('sent_', '');
     const order = orders.find(o => o.id == orderId);
 
-    if (order) {
-      order.status = 'sent';
-
-      await bot.answerCallbackQuery(query.id, {
-        text: 'Статус обновлён: подарок отправлен ✅'
+    if (!order) {
+      return bot.answerCallbackQuery(query.id, {
+        text: 'Заказ не найден'
       });
+    }
 
-      await bot.editMessageText(
-        `✅ Подарок отправлен!
+    order.status = 'sent';
+
+    await bot.answerCallbackQuery(query.id, {
+      text: 'Статус обновлён: подарок отправлен ✅'
+    });
+
+    await bot.editMessageText(
+      `✅ Подарок отправлен!
 
 🧾 Заказ: #${order.id}
-🎁 Gift ID: ${order.giftId}
+👤 Покупатель: ${order.username || 'не указан'}
+🎁 Товар: ${order.giftName}
+💵 Цена: ${order.price.toLocaleString()} сум
 📌 Статус: sent`,
-        {
-          chat_id: query.message.chat.id,
-          message_id: query.message.message_id
-        }
-      );
-    }
+      {
+        chat_id: query.message.chat.id,
+        message_id: query.message.message_id
+      }
+    );
   }
 });
 
