@@ -1,6 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api')
 
-const bot = new TelegramBot('8689990118:AAHJnEiJH_4aGctJwGqEnDWTwWVmEhL_vw0', { polling: true })
+const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true })
 
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(msg.chat.id, "Открыть маркет", {
@@ -10,7 +10,7 @@ bot.onText(/\/start/, (msg) => {
           {
             text: "Открыть",
             web_app: {
-              url: "https://woof-giddily-concrete.ngrok-free.dev"
+              url: "https://frontend-438e.onrender.com"
             }
           }
         ]
