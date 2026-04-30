@@ -22,11 +22,11 @@ const gifts = [
     name: "Fresh Socks",
     number: 918,
     model: "Foundation",
-    symbol: "Drug",
-    backdrop: "Cobalt Blue",
-    availability: "162 997/200 509",
+    symbol: "Pomegranate",
+    backdrop: "Burgundy",
+    availability: "9 377/9 990 issued",
     value: 165506,
-    image: "https://i.imgur.com/1X6GQ7M.png",
+    image: "https://cdn-icons-png.flaticon.com/512/861/861512.png",
     bgColor: "#5c6cff"
   },
   {
@@ -34,23 +34,20 @@ const gifts = [
     name: "Bling Binky",
     number: 918,
     model: "Regent",
-    symbol: "Pomegranate",
-    backdrop: "Burgundy",
-    availability: "9 377/9 990",
     value: 1275373,
-    image: "https://i.imgur.com/2mYwJYp.png",
+    image: "https://cdn-icons-png.flaticon.com/512/3468/3468377.png",
     bgColor: "#8b4a4a"
   },
   {
     id: 3,
     name: "Input Key",
-    number: 918,
+    number: 918 ,
     model: "Woodland",
-    symbol: "Orchid",
-    backdrop: "Chestnut",
-    availability: "132 032/159 750",
+    symbol: "Pomegranate",
+    backdrop: "Burgundy",
+    availability: "9 377/9 990 issued",
     value: 514952,
-    image: "https://i.imgur.com/3YkQw2R.png",
+    image: "https://cdn-icons-png.flaticon.com/512/1828/1828919.png",
     bgColor: "#a0522d"
   },
   {
@@ -58,11 +55,11 @@ const gifts = [
     name: "Swag Bag",
     number: 918,
     model: "Rastafari",
-    symbol: "Ice Cream",
-    backdrop: "Pacific Cyan",
-    availability: "231 724/237 970",
+    symbol: "Pomegranate",
+    backdrop: "Burgundy",
+    availability: "9 377/9 990 issued",
     value: 292070,
-    image: "https://i.imgur.com/4ZkLmP3.png",
+    image: "https://cdn-icons-png.flaticon.com/512/3082/3082034.png",
     bgColor: "#4db8ff"
   }
 ];

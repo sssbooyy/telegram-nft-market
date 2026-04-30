@@ -122,29 +122,59 @@ export default function App() {
       </footer>
 
       {selected && (
-        <div className="modal">
-          <div className="modalContent" style={{ background: selected.bgColor }}>
-            <button className="close" onClick={() => setSelected(null)}>×</button>
-            <img src={selected.image} />
+  <div className="giftPage">
+    <div className="giftHero" style={{ background: selected.bgColor }}>
+      <button className="giftClose" onClick={() => setSelected(null)}>×</button>
+      <button className="giftMenu">•••</button>
 
-            <h1>{selected.name} #{selected.number}</h1>
-            <p>{selected.model}</p>
+      <div className="pattern">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
 
-            <div className="info">
-              <div><b>Owner:</b> Abat ⭐</div>
-              <div><b>Model:</b> {selected.model}</div>
-              <div><b>Symbol:</b> {selected.symbol}</div>
-              <div><b>Backdrop:</b> {selected.backdrop}</div>
-              <div><b>Availability:</b> {selected.availability}</div>
-              <div><b>Value:</b> {selected.value.toLocaleString()} сум</div>
-          </div>
+      <img className="giftBigImage" src={selected.image} alt={selected.name} />
 
-          <button className="buy" onClick={() => buyGift(selected.id)}>
-            Request gift
-          </button>
+      <h1>{selected.name} #{selected.number}</h1>
+      <p>{selected.model}</p>
+
+      <div className="giftActions">
+        <button>💎<span>Transfer</span></button>
+        <button>♛<span>Wear</span></button>
+        <button>🏷<span>Sell</span></button>
+      </div>
+    </div>
+
+    <div className="giftDetails">
+      <div className="giftTable">
+        <div className="row">
+          <div>Owner</div>
+          <div><span className="avatar">A</span> <span className="owner">Abat ★</span></div>
         </div>
+        <div className="row">
+          <div>Model</div>
+          <div>{selected.model} <span className="percent">2%</span></div>
         </div>
-      )}
+        <div className="row">
+          <div>Symbol</div>
+          <div>{selected.symbol || "Star"} <span className="percent">0.5%</span></div>
+        </div>
+        <div className="row">
+          <div>Backdrop</div>
+          <div>{selected.backdrop || "Blue"} <span className="percent">1.2%</span></div>
+        </div>
+        <div className="row">
+          <div>Availability</div>
+          <div>{selected.availability || "162 997/200 509 issued"}</div>
+        </div>
+        <div className="row">
+          <div>Value</div>
+          <div>{selected.value.toLocaleString()} сум <span className="learn">learn more</span></div>
+        </div>
+      </div>
+
+      <button className="displayBtn" onClick={() => buyGift(selected.id)}>
+        Request gift
+      </button>
+    </div>
+  </div>
+)}
     </div>
   );
 }
