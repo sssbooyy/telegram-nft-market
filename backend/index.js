@@ -26,7 +26,7 @@ const gifts = [
     backdrop: "Cobalt Blue",
     availability: "162 997/200 509 issued",
     value: 165506,
-    image: "https://cdn-icons-png.flaticon.com/512/2589/2589175.png",
+    image: "/gifts/fresh-socks.png",
     bgColor: "#5c6cff"
   },
   {
