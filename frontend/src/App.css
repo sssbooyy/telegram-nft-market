@@ -1,0 +1,192 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+  background: #0f172a;
+  color: white;
+}
+
+.app {
+  max-width: 520px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  background: linear-gradient(135deg, #1e293b, #111827);
+  padding: 28px 22px;
+  border-radius: 28px;
+  margin-bottom: 24px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.badge {
+  margin: 0 0 12px;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 42px;
+  line-height: 1.1;
+}
+
+.subtitle {
+  margin: 14px 0 0;
+  color: #cbd5e1;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.grid {
+  display: grid;
+  gap: 18px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 22px;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+}
+
+.card h3 {
+  margin: 8px 0;
+  text-align: center;
+  font-size: 25px;
+}
+
+.card h2 {
+  margin: 8px 0 18px;
+  text-align: center;
+  font-size: 28px;
+}
+
+.giftEmoji {
+  font-size: 70px;
+  text-align: center;
+  margin: 8px 0 18px;
+}
+
+.bigEmoji {
+  font-size: 96px;
+  margin: 10px 0 22px;
+}
+
+.price {
+  margin: 12px 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.muted {
+  color: #94a3b8;
+  font-size: 15px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 15px 16px;
+  border: none;
+  border-radius: 18px;
+  background: #6366f1;
+  color: white;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.backBtn {
+  background: #334155;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.notice {
+  background: #064e3b;
+  color: #bbf7d0;
+  padding: 14px 16px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.paymentBox {
+  background: #0f172a;
+  padding: 16px;
+  border-radius: 18px;
+  margin: 16px 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.paymentBox h3 {
+  margin: 0 0 10px;
+}
+
+.paymentBox p {
+  margin: 8px 0;
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: white;
+  font-size: 16px;
+  outline: none;
+}
+
+input::placeholder {
+  color: #64748b;
+}
+
+.success {
+  text-align: center;
+}
+
+.successIcon {
+  font-size: 72px;
+  margin-bottom: 12px;
+}
+
+.skeleton {
+  opacity: 0.65;
+}
+
+.skeletonCircle {
+  width: 80px;
+  height: 80px;
+  margin: 10px auto 20px;
+  border-radius: 24px;
+  background: #334155;
+}
+
+.skeletonLine {
+  height: 22px;
+  border-radius: 10px;
+  background: #334155;
+  margin: 12px auto;
+  width: 70%;
+}
+
+.skeletonLine.small {
+  width: 45%;
+}
