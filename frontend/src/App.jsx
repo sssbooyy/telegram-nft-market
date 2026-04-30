@@ -90,11 +90,8 @@ export default function App() {
           <div className="grid">
             {filtered.map((gift) => (
               <div className="card" key={gift.id} onClick={() => setSelected(gift)}>
-              <div
-                className="imageBox"
-                style={{ background: gift.bgColor }}
-              >
-                <img src={gift.image} />
+              <div className="imageBox" style={{ background: gift.bgColor }}>
+                <img src={gift.image} alt={gift.name} />
               </div>
             
               <h2>{gift.name} #{gift.number}</h2>

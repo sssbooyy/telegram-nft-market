@@ -38,7 +38,7 @@ const gifts = [
     backdrop: "Burgundy",
     availability: "9 377/9 990 issued",
     value: 1275373,
-    image: "https://cdn-icons-png.flaticon.com/512/4315/4315445.png",
+    image: "/gifts/bling-binly.png",
     bgColor: "#8b4a4a"
   },
   {
@@ -50,7 +50,7 @@ const gifts = [
     backdrop: "Chestnut",
     availability: "132 032/159 750 issued",
     value: 514952,
-    image: "https://cdn-icons-png.flaticon.com/512/1828/1828919.png",
+    image: "/gifts/input-key.png",
     bgColor: "#a0522d"
   },
   {
@@ -62,7 +62,7 @@ const gifts = [
     backdrop: "Pacific Cyan",
     availability: "231 724/237 970 issued",
     value: 292070,
-    image: "https://cdn-icons-png.flaticon.com/512/3082/3082034.png",
+    image: "/gifts/swag-bag.png",
     bgColor: "#4db8ff"
   }
 ];
