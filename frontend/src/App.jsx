@@ -1,167 +1,135 @@
-import { useEffect, useState } from "react"
-import axios from "axios"
-import "./App.css"
+import { useEffect, useState } from "react";
+import axios from "axios";
+import "./App.css";
 
-const API = "https://nft-backend-zk0a.onrender.com"
+const API_URL = "https://nft-backend-zk0a.onrender.com";
 
-function App() {
-  const [gifts, setGifts] = useState([])
-  const [selectedGift, setSelectedGift] = useState(null)
-  const [order, setOrder] = useState(null)
-  const [screen, setScreen] = useState("market")
-  const [message, setMessage] = useState("")
-  const [username, setUsername] = useState("")
-  const [loading, setLoading] = useState(true)
+export default function App() {
+  const [gifts, setGifts] = useState([]);
+  const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState(null);
+  const [tab, setTab] = useState("store");
+
+  const tg = window.Telegram?.WebApp;
+  const user = tg?.initDataUnsafe?.user;
 
   useEffect(() => {
-    window.Telegram?.WebApp?.ready()
+    tg?.expand();
+    axios.get(`${API_URL}/gifts`).then((res) => setGifts(res.data));
+  }, []);
 
-    axios.get(`${API}/gifts`)
-      .then(res => {
-        setGifts(res.data)
-        setLoading(false)
-      })
-      .catch(err => {
-        console.log(err)
-        setLoading(false)
-      })
-  }, [])
+  const filtered = gifts.filter((gift) =>
+    gift.name.toLowerCase().includes(search.toLowerCase())
+  );
 
-  const createOrder = async (gift) => {
-    const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user
+  const buyGift = async (giftId) => {
+    await axios.post(`${API_URL}/orders`, {
+      giftId,
+      user: {
+        id: user?.id,
+        username: user?.username,
+        first_name: user?.first_name,
+      },
+    });
 
-    const res = await axios.post(`${API}/orders`, {
-      giftId: gift.id,
-      user: tgUser
-    })
-
-    setSelectedGift(gift)
-    setOrder(res.data.order)
-    setScreen("payment")
-    setMessage("")
-  }
-
-  const confirmPayment = async () => {
-    if (!username.trim()) {
-      setMessage("Введите Telegram username")
-      return
-    }
-
-    const cleanUsername = username.trim().startsWith("@")
-      ? username.trim()
-      : "@" + username.trim()
-
-    await axios.post(`${API}/payment-success`, {
-      orderId: order.id,
-      username: cleanUsername
-    })
-
-    setMessage("Оплата подтверждена ✅ Админ получил заказ и скоро отправит подарок.")
-    setScreen("success")
-  }
-
-  const resetMarket = () => {
-    setScreen("market")
-    setOrder(null)
-    setSelectedGift(null)
-    setUsername("")
-    setMessage("")
-  }
+    alert("Заказ отправлен админу ✅");
+    setSelected(null);
+  };
 
   return (
     <div className="app">
-      <header className="header">
-        <p className="badge">Telegram NFT Gifts</p>
-        <h1>NFT Market</h1>
-        <p className="subtitle">
-          Покупай Telegram-подарки через Humo / Uzcard
-        </p>
+      <header className="top">
+      <div className="logo">🇺🇿 UZB Market</div>
+        <div className="menu">•••</div>
       </header>
 
-      {message && screen !== "success" && (
-        <div className="notice">{message}</div>
-      )}
+      <div className="balance">
+        <div>⭐ 0</div>
+        <div>💎 0 TON</div>
+      </div>
 
-      {screen === "market" && (
+      <div className="banner">
+        <div>
+          <h1>3 collections</h1>
+          <p>Cashback 50%</p>
+        </div>
+        <div className="banner-icons">🎒 🥇 🔥</div>
+      </div>
+
+      <nav className="tabs">
+        <button
+          className={tab === "store" ? "active" : ""}
+          onClick={() => setTab("store")}
+        >
+          All items
+        </button>
+        <button
+          className={tab === "collections" ? "active" : ""}
+          onClick={() => setTab("collections")}
+        >
+          Collections
+        </button>
+      </nav>
+
+      {tab === "store" && (
         <>
-          {loading ? (
-            <section className="grid">
-              {[1, 2].map(i => (
-                <div className="card skeleton" key={i}>
-                  <div className="skeletonCircle"></div>
-                  <div className="skeletonLine"></div>
-                  <div className="skeletonLine small"></div>
+          <input
+            className="search"
+            placeholder="🔍 Quick find"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          <div className="filters">
+            <button>Filter</button>
+            <button>Sort</button>
+            <button>Collection</button>
+            <button>Model</button>
+          </div>
+
+          <div className="grid">
+            {filtered.map((gift) => (
+              <div className="card" key={gift.id} onClick={() => setSelected(gift)}>
+                <div className="imageBox">
+                  <img src={gift.image} alt={gift.name} />
                 </div>
-              ))}
-            </section>
-          ) : (
-            <section className="grid">
-              {gifts.map(g => (
-                <div className="card" key={g.id}>
-                  <div className="giftEmoji">🎁</div>
-                  <h3>{g.name}</h3>
-                  <p className="price">{g.price.toLocaleString()} сум</p>
-                  <p className="muted">Цифровой Telegram NFT-подарок</p>
-                  <button onClick={() => createOrder(g)}>Купить</button>
-                </div>
-              ))}
-            </section>
-          )}
+                <h2>{gift.name}</h2>
+                <p>#{gift.number}</p>
+                <button>{gift.price} 💎</button>
+              </div>
+            ))}
+          </div>
         </>
       )}
 
-      {screen === "payment" && selectedGift && order && (
-        <div className="card">
-          <button className="backBtn" onClick={() => setScreen("market")}>
-            ← Назад
-          </button>
-
-          <h2>Оплата заказа</h2>
-
-          <div className="giftEmoji bigEmoji">🎁</div>
-
-          <div className="paymentBox">
-            <p><b>Товар:</b> {selectedGift.name}</p>
-            <p><b>Сумма:</b> {selectedGift.price.toLocaleString()} сум</p>
-            <p><b>Номер заказа:</b> #{order.id}</p>
-          </div>
-
-          <div className="paymentBox">
-            <h3>Способ оплаты</h3>
-            <p>Humo / Uzcard</p>
-            <p className="muted">
-              После оплаты админ получит уведомление и отправит подарок вручную.
-            </p>
-          </div>
-
-          <div className="paymentBox">
-            <h3>Ваш Telegram username</h3>
-            <input
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="@username"
-            />
-            <p className="muted">
-              Админ отправит подарок на этот Telegram.
-            </p>
-          </div>
-
-          <button onClick={confirmPayment}>Я оплатил</button>
+      {tab === "collections" && (
+        <div className="empty">
+          <h2>Collections</h2>
+          <p>Скоро тут будут коллекции подарков.</p>
         </div>
       )}
 
-      {screen === "success" && (
-        <div className="card success">
-          <div className="successIcon">✅</div>
-          <h2>Заказ принят</h2>
-          <p>{message}</p>
-          <button onClick={resetMarket}>
-            Вернуться в магазин
-          </button>
+      <footer className="bottom">
+        <button>🎮<span>Games</span></button>
+        <button className="selected">🛍<span>Store</span></button>
+        <button>🎁<span>My gifts</span></button>
+        <button>✨<span>Season</span></button>
+      </footer>
+
+      {selected && (
+        <div className="modal">
+          <div className="modalContent">
+            <button className="close" onClick={() => setSelected(null)}>×</button>
+            <img src={selected.image} alt={selected.name} />
+            <h1>{selected.name}</h1>
+            <p>#{selected.number}</p>
+            <h2>{selected.price} 💎</h2>
+            <button className="buy" onClick={() => buyGift(selected.id)}>
+              Request gift
+            </button>
+          </div>
         </div>
       )}
     </div>
-  )
+  );
 }
-
-export default App
