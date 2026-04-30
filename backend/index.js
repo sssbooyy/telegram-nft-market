@@ -12,7 +12,7 @@ app.use(express.json());
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 
 const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || '8182287812';
-const FRONTEND_URL = 'https://frontend-438e.onrender.com';
+const FRONTEND_URL = 'https://fronted-438e.onrender.com';
 
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(msg.chat.id, 'Открыть маркет', {
